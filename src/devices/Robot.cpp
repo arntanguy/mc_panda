@@ -208,6 +208,17 @@ void Robot::setCollisionBehavior(const std::array<double, 7> & lower_torque_thre
   commandCv_.notify_one();
 }
 
+void Robot::setGuidingMode(const std::array<double, 6> & guiding_mode, bool elbow)
+{
+  {
+    std::unique_lock<std::mutex> lock(commandMutex_);
+    commands_.emplace("setGuidingMode", [=]() {
+      robot_->setGuidingMode(guiding_mode, elbow);
+    });
+  }
+  commandCv_.notify_one();
+}
+
 void Robot::setJointImpedance(const std::array<double, 7> & K_theta)
 {
   {

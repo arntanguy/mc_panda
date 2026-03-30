@@ -105,6 +105,12 @@ struct MC_PANDA_DEVICES_DLLAPI Robot : public mc_rbdyn::Device
   /** Sets the cartesian impedance in the internal controller, see franka::Robot documentation for details */
   void setCartesianImpedance(const std::array<double, 6> & K_x);
 
+  /**
+    Locks or unlocks guiding mode movement in (x, y, z, roll, pitch, yaw).
+    If a flag is set to true, movement is unlocked.
+  */
+  void setGuidingMode(const std::array<double, 6> & guiding_mode, bool elbow);
+
   /** Stop all currently running motions, see franka::Robot documentation for details */
   void stop();
 
